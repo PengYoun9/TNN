@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
     // 创建tnn实例
     auto proto_content = fdLoadFile(argv[1]);
     auto model_content = fdLoadFile(argv[2]);
-    int h = 240, w = 320;
+    int h = 320, w = 320;
     if(argc >= 5) {
         h = std::atoi(argv[3]);
         w = std::atoi(argv[4]);
@@ -91,6 +91,7 @@ int main(int argc, char** argv) {
     //Init
     std::shared_ptr<TNNSDKOutput> sdk_output = predictor->CreateSDKOutput();
     CHECK_TNN_STATUS(predictor->Init(option));
+    
     //Predict
     auto image_mat = std::make_shared<TNN_NS::Mat>(TNN_NS::DEVICE_ARM, TNN_NS::N8UC3, nchw, data);
     CHECK_TNN_STATUS(predictor->Predict(std::make_shared<UltraFaceDetectorInput>(image_mat), sdk_output));
